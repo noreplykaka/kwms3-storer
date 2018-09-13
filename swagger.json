@@ -1,0 +1,488 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "A sample API that uses a KWMS3-STORER as an example to demonstrate features in the swagger-2.0 specification",
+    "version" : "Beta-1.0.0",
+    "title" : "SWAGGER KWMS3-STORER",
+    "termsOfService" : "http://swagger.io/terms/",
+    "contact" : {
+      "name" : "KWMS3 API Team",
+      "url" : "http://kwms3.kerrylogistics.com",
+      "email" : "kwms3@kerrylogistics.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host" : "kwms3-api-dev.kerrylogistics.com",
+  "basePath" : "/v1",
+  "tags" : [ {
+    "name" : "storer",
+    "description" : "All about Storer"
+  }, {
+    "name" : "edi",
+    "description" : "All about Edi"
+  } ],
+  "schemes" : [ "http" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/storer" : {
+      "get" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all storer detail.",
+        "operationId" : "allstorerHandler",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Storer Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storer/{storerId}" : {
+      "get" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all storer detail by storer id.",
+        "operationId" : "storerHandler",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search storer detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Storer Response By ID",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storer/{storerId}/attributes" : {
+      "get" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all attributes from storer detail by using storer id.",
+        "operationId" : "allAttrHandler",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search storer detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Attributes Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storer/{storerId}/udf" : {
+      "get" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all storer detail by using storer id and base of user defined parameter.",
+        "operationId" : "storerAttrMetaForReportHandler",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search storer detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Storer Response By ID and Parameter",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storer/{storerId}/udf/{attrId}" : {
+      "get" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all storer detail by using storer id and attrId.",
+        "operationId" : "storerAttrMetaHandler",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search storer detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "attrId",
+          "in" : "path",
+          "description" : "use to search storer detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Storer Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storer/{storerId}/udf/search" : {
+      "post" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all storer detail by using storer id and search condition.",
+        "operationId" : "storerAttrMetaListHandler",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search storer detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Storer Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storer/{storerId}/pick_rule_set" : {
+      "get" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all PickRule detail by using storer id.",
+        "operationId" : "pickRuleSetListHandler",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search PickRule detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "PickRule Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storer/{storerId}/pick_rule_set/{pickRuleSetId}" : {
+      "get" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all PickRule detail by using storer id and pickrule id.",
+        "operationId" : "pickRuleSetHandlerById",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search PickRule detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "pickRuleSetId",
+          "in" : "path",
+          "description" : "use to search PickRule detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "PickRule Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storer/{storerId}/pick_rule_set/search" : {
+      "post" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all PickRule detail by using storer id and search condition.",
+        "operationId" : "pickRuleSetHandler",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search PickRule detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "PickRule Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/edi/{storerId}/category/{category}" : {
+      "get" : {
+        "tags" : [ "edi" ],
+        "description" : "This function return all category detail by using storer id and category.",
+        "operationId" : "ediHandler",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search categorty detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "category",
+          "in" : "path",
+          "description" : "use to search categorty detail",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Category Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storer/{storerId}/scan_in_config" : {
+      "post" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all Scan In Config detail by using storer id.",
+        "operationId" : "scanInConfigListHandler",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search Scan In Config detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Scan In Config Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storer/{storerId}/scan_in_config/{scan_in_config}" : {
+      "post" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all Scan In Config detail by using storer id and scan in config id.",
+        "operationId" : "scanInConfigHandler",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search Scan In Config detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "scan_in_config",
+          "in" : "path",
+          "description" : "use to search Scan In Config detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Scan In Config Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/storer/{storerId}/scan_in_config/{scan_in_config}/groupingField" : {
+      "post" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return all GroupingField detail by using storer id and scan in config id.",
+        "operationId" : "scanInConfigGroupingHandler",
+        "parameters" : [ {
+          "name" : "storerId",
+          "in" : "path",
+          "description" : "use to search Grouping Field detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "scan_in_config",
+          "in" : "path",
+          "description" : "use to search Grouping Field detail",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Grouping Field Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/lpn-number" : {
+      "get" : {
+        "tags" : [ "storer" ],
+        "description" : "This function return LPN Report No.",
+        "operationId" : "lpnNumberHandler",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "LPN Response",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "ApiResponse" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Error" : {
+      "type" : "object",
+      "required" : [ "code", "message" ],
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
