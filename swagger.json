@@ -8,15 +8,14 @@
     "contact" : {
       "name" : "KWMS3 API Team",
       "url" : "http://kwms3.kerrylogistics.com",
-      "email" : "kwms3@kerrylogistics.com"
+      "email" : "noreplykaka@gmail.com"
     },
     "license" : {
       "name" : "Apache 2.0",
       "url" : "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host" : "kwms3-api-dev.kerrylogistics.com",
-  "basePath" : "/v1",
+  "host" : "ec2-52-221-185-107.ap-southeast-1.compute.amazonaws.com:8002",
   "tags" : [ {
     "name" : "storer",
     "description" : "All about Storer"
@@ -24,7 +23,7 @@
     "name" : "edi",
     "description" : "All about Edi"
   } ],
-  "schemes" : [ "http" ],
+  "schemes" : [ "http", "https" ],
   "consumes" : [ "application/json" ],
   "produces" : [ "application/json" ],
   "paths" : {
@@ -33,18 +32,45 @@
         "tags" : [ "storer" ],
         "description" : "This function return all storer detail.",
         "operationId" : "allstorerHandler",
-        "parameters" : [ ],
+        "parameters" : [ {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "Request Page Number",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "The Number Item Return Per Page",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "description" : "Use For Filter Data",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        } ],
         "responses" : {
           "200" : {
-            "description" : "Storer Response",
+            "description" : "List Storer Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/ListStorerResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
@@ -62,18 +88,31 @@
           "required" : true,
           "type" : "integer",
           "format" : "Int64"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "description" : "Use For Filter Data",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
         } ],
         "responses" : {
           "200" : {
             "description" : "Storer Response By ID",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/StorerResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
@@ -91,18 +130,45 @@
           "required" : true,
           "type" : "integer",
           "format" : "Int64"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "Request Page Number",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "The Number Item Return Per Page",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "description" : "Use For Filter Data",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
         } ],
         "responses" : {
           "200" : {
-            "description" : "Attributes Response",
+            "description" : "Storer Attributes Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/GetStorerAttributesResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
@@ -120,18 +186,57 @@
           "required" : true,
           "type" : "integer",
           "format" : "Int64"
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "use to search storer detail",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "system",
+          "in" : "query",
+          "description" : "use to search storer detail",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "Request Page Number",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "The Number Item Return Per Page",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "description" : "Use For Filter Data",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
         } ],
         "responses" : {
           "200" : {
             "description" : "Storer Response By ID and Parameter",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/GetStorerByFilteringResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
@@ -156,18 +261,31 @@
           "required" : true,
           "type" : "integer",
           "format" : "Int64"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "description" : "Use For Filter Data",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
         } ],
         "responses" : {
           "200" : {
             "description" : "Storer Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/StorerbyStorerIdAttrIdResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
@@ -185,18 +303,52 @@
           "required" : true,
           "type" : "integer",
           "format" : "Int64"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "Request Page Number",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "The Number Item Return Per Page",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "description" : "Use For Filter Data",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "in" : "body",
+          "name" : "searchStorerRequestBody",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/searchStorerRequestBody"
+          }
         } ],
         "responses" : {
           "200" : {
             "description" : "Storer Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/GetStorerBySearchResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
@@ -214,18 +366,45 @@
           "required" : true,
           "type" : "integer",
           "format" : "Int64"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "Request Page Number",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "The Number Item Return Per Page",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "description" : "Use For Filter Data",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
         } ],
         "responses" : {
           "200" : {
             "description" : "PickRule Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/GetPickRuleSetResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
@@ -250,18 +429,31 @@
           "required" : true,
           "type" : "integer",
           "format" : "Int64"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "description" : "Use For Filter Data",
+          "required" : true,
+          "type" : "integer",
+          "format" : "Int64"
         } ],
         "responses" : {
           "200" : {
             "description" : "PickRule Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/GetStorerByStorerIdPickRuleSetIdResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
@@ -279,18 +471,51 @@
           "required" : true,
           "type" : "integer",
           "format" : "Int64"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "Request Page Number",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "The Number Item Return Per Page",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "in" : "body",
+          "name" : "searchPickRuleSetRequestBody",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/searchPickRuleSetRequestBody"
+          }
         } ],
         "responses" : {
           "200" : {
             "description" : "PickRule Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/SearchPickRuleSetbyStorerIdResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
@@ -319,20 +544,26 @@
           "200" : {
             "description" : "Category Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/ApiResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
       }
     },
     "/storer/{storerId}/scan_in_config" : {
-      "post" : {
+      "get" : {
         "tags" : [ "storer" ],
         "description" : "This function return all Scan In Config detail by using storer id.",
         "operationId" : "scanInConfigListHandler",
@@ -343,25 +574,51 @@
           "required" : true,
           "type" : "integer",
           "format" : "Int64"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "Request Page Number",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "The Number Item Return Per Page",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
         } ],
         "responses" : {
           "200" : {
             "description" : "Scan In Config Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/GetScanInConfigListResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
       }
     },
     "/storer/{storerId}/scan_in_config/{scan_in_config}" : {
-      "post" : {
+      "get" : {
         "tags" : [ "storer" ],
         "description" : "This function return all Scan In Config detail by using storer id and scan in config id.",
         "operationId" : "scanInConfigHandler",
@@ -384,20 +641,26 @@
           "200" : {
             "description" : "Scan In Config Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/GetScanInConfigResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
       }
     },
     "/storer/{storerId}/scan_in_config/{scan_in_config}/groupingField" : {
-      "post" : {
+      "get" : {
         "tags" : [ "storer" ],
         "description" : "This function return all GroupingField detail by using storer id and scan in config id.",
         "operationId" : "scanInConfigGroupingHandler",
@@ -415,25 +678,51 @@
           "required" : true,
           "type" : "integer",
           "format" : "Int64"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "Request Page Number",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "The Number Item Return Per Page",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "Int64"
         } ],
         "responses" : {
           "200" : {
             "description" : "Grouping Field Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/GetGroupingFieldResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
+          "400" : {
+            "description" : "Unauthorized",
             "schema" : {
-              "$ref" : "#/definitions/Error"
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
       }
     },
-    "/lpn-number" : {
-      "get" : {
+    "/lpn" : {
+      "post" : {
         "tags" : [ "storer" ],
         "description" : "This function return LPN Report No.",
         "operationId" : "lpnNumberHandler",
@@ -442,20 +731,620 @@
           "200" : {
             "description" : "LPN Response",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/ApiResponse"
             }
           },
-          "default" : {
-            "description" : "unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
+          "404" : {
+            "description" : "Page not found, no API found with those values."
           }
         }
       }
     }
   },
   "definitions" : {
+    "ListStorerResponse" : {
+      "type" : "object",
+      "properties" : {
+        "pageInfo" : {
+          "$ref" : "#/definitions/ListStorerResponse_pageInfo"
+        },
+        "storer_items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ListStorerResponse_storer_items"
+          }
+        }
+      },
+      "example" : {
+        "storer_items" : [ {
+          "maxWeightDisprecancy" : 4,
+          "defaultPackCodeWidth" : 2,
+          "decimalPlacesUomQty" : 1,
+          "companyName" : "companyName",
+          "barcodeType" : "barcodeType",
+          "defaultPackCodeHeight" : 7,
+          "dateLastBilling" : "dateLastBilling",
+          "decimalPlacesNettWeight" : 6,
+          "defaultPackCodeGrossWeight" : 9,
+          "decimalPlacesVolume" : 7,
+          "defaultPackCodeLength" : 5,
+          "isRequireCheckWeight" : true,
+          "asnLotNoConfig" : "asnLotNoConfig",
+          "storerId" : 1,
+          "maxDimensionDisprecancy" : 2,
+          "storerCode" : "storerCode",
+          "storageTypeId" : 5,
+          "isRequireCheckDimension" : true,
+          "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+          "decimalPlacesDimension" : 7,
+          "decimalPlacesBaseQty" : 1,
+          "defaultPackCodeNettWeight" : 3,
+          "decimalPlacesGrossWeight" : 1
+        }, {
+          "maxWeightDisprecancy" : 4,
+          "defaultPackCodeWidth" : 2,
+          "decimalPlacesUomQty" : 1,
+          "companyName" : "companyName",
+          "barcodeType" : "barcodeType",
+          "defaultPackCodeHeight" : 7,
+          "dateLastBilling" : "dateLastBilling",
+          "decimalPlacesNettWeight" : 6,
+          "defaultPackCodeGrossWeight" : 9,
+          "decimalPlacesVolume" : 7,
+          "defaultPackCodeLength" : 5,
+          "isRequireCheckWeight" : true,
+          "asnLotNoConfig" : "asnLotNoConfig",
+          "storerId" : 1,
+          "maxDimensionDisprecancy" : 2,
+          "storerCode" : "storerCode",
+          "storageTypeId" : 5,
+          "isRequireCheckDimension" : true,
+          "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+          "decimalPlacesDimension" : 7,
+          "decimalPlacesBaseQty" : 1,
+          "defaultPackCodeNettWeight" : 3,
+          "decimalPlacesGrossWeight" : 1
+        } ],
+        "pageInfo" : {
+          "pageNumber" : 0,
+          "pageSize" : 6
+        }
+      }
+    },
+    "StorerResponse" : {
+      "type" : "object",
+      "properties" : {
+        "storerId" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "storageTypeId" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "companyName" : {
+          "type" : "string"
+        },
+        "storerCode" : {
+          "type" : "string"
+        },
+        "defaultPackCodeLength" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "defaultPackCodeWidth" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "defaultPackCodeHeight" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "defaultPackCodeGrossWeight" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "defaultPackCodeNettWeight" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "maxDimensionDisprecancy" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "maxWeightDisprecancy" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "isRequireCheckDimension" : {
+          "type" : "boolean",
+          "x-nullable" : true
+        },
+        "isRequireCheckWeight" : {
+          "type" : "boolean",
+          "x-nullable" : true
+        },
+        "decimalPlacesVolume" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "decimalPlacesUomQty" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "decimalPlacesBaseQty" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "decimalPlacesGrossWeight" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "decimalPlacesNettWeight" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "decimalPlacesDimension" : {
+          "type" : "integer",
+          "x-nullable" : true
+        },
+        "asnLotNoConfig" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "barcodeType" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "modifiedDateTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "x-nullable" : true
+        },
+        "dateLastBilling" : {
+          "type" : "string",
+          "x-nullable" : true
+        }
+      },
+      "example" : {
+        "maxWeightDisprecancy" : 3,
+        "defaultPackCodeWidth" : 5,
+        "decimalPlacesUomQty" : 4,
+        "companyName" : "companyName",
+        "barcodeType" : "barcodeType",
+        "defaultPackCodeHeight" : 5,
+        "dateLastBilling" : "dateLastBilling",
+        "decimalPlacesNettWeight" : 1,
+        "defaultPackCodeGrossWeight" : 2,
+        "decimalPlacesVolume" : 2,
+        "defaultPackCodeLength" : 1,
+        "isRequireCheckWeight" : true,
+        "asnLotNoConfig" : "asnLotNoConfig",
+        "storerId" : 0,
+        "maxDimensionDisprecancy" : 9,
+        "storerCode" : "storerCode",
+        "storageTypeId" : 6,
+        "isRequireCheckDimension" : true,
+        "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+        "decimalPlacesDimension" : 1,
+        "decimalPlacesBaseQty" : 7,
+        "defaultPackCodeNettWeight" : 7,
+        "decimalPlacesGrossWeight" : 1
+      }
+    },
+    "StorerbyStorerIdAttrIdResponse" : {
+      "type" : "object",
+      "properties" : {
+        "storerAttrMetaId" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "systemField" : {
+          "type" : "boolean"
+        },
+        "attrLevel" : {
+          "type" : "string"
+        },
+        "attrName" : {
+          "type" : "string"
+        },
+        "attrType" : {
+          "type" : "string"
+        },
+        "desc" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "storerId" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "mandatory" : {
+          "type" : "boolean"
+        },
+        "regex" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "modifiedDateTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "x-nullable" : true
+        },
+        "udfNo" : {
+          "type" : "string",
+          "x-nullable" : true
+        }
+      },
+      "example" : {
+        "systemField" : true,
+        "regex" : "regex",
+        "attrLevel" : "attrLevel",
+        "storerId" : 6,
+        "storerAttrMetaId" : 0,
+        "udfNo" : "udfNo",
+        "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+        "mandatory" : true,
+        "attrName" : "attrName",
+        "attrType" : "attrType",
+        "desc" : "desc"
+      }
+    },
+    "GetStorerAttributesResponse" : {
+      "type" : "object",
+      "properties" : {
+        "pageInfo" : {
+          "$ref" : "#/definitions/ListStorerResponse_pageInfo"
+        },
+        "attributes_items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/GetStorerAttributesResponse_attributes_items"
+          }
+        }
+      },
+      "example" : {
+        "pageInfo" : {
+          "pageNumber" : 0,
+          "pageSize" : 6
+        },
+        "attributes_items" : [ {
+          "dataType" : "dataType",
+          "udfNo" : "udfNo",
+          "name" : "name",
+          "description" : "description",
+          "regexValidator" : "regexValidator",
+          "isForAllocation" : true,
+          "isForSorting" : true,
+          "id" : 0,
+          "modelAttributeKey" : "modelAttributeKey",
+          "isMandatory" : true,
+          "isSystemField" : true
+        }, {
+          "dataType" : "dataType",
+          "udfNo" : "udfNo",
+          "name" : "name",
+          "description" : "description",
+          "regexValidator" : "regexValidator",
+          "isForAllocation" : true,
+          "isForSorting" : true,
+          "id" : 0,
+          "modelAttributeKey" : "modelAttributeKey",
+          "isMandatory" : true,
+          "isSystemField" : true
+        } ]
+      }
+    },
+    "GetStorerByFilteringResponse" : {
+      "type" : "object",
+      "properties" : {
+        "pageInfo" : {
+          "$ref" : "#/definitions/ListStorerResponse_pageInfo"
+        },
+        "storer_items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/GetStorerByFilteringResponse_storer_items"
+          }
+        }
+      },
+      "example" : {
+        "storer_items" : [ {
+          "val" : "val",
+          "code" : "code",
+          "id" : 0
+        }, {
+          "val" : "val",
+          "code" : "code",
+          "id" : 0
+        } ],
+        "pageInfo" : {
+          "pageNumber" : 0,
+          "pageSize" : 6
+        }
+      }
+    },
+    "GetStorerBySearchResponse" : {
+      "type" : "object",
+      "properties" : {
+        "pageInfo" : {
+          "$ref" : "#/definitions/ListStorerResponse_pageInfo"
+        },
+        "storer_items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/GetStorerBySearchResponse_storer_items"
+          }
+        }
+      },
+      "example" : {
+        "storer_items" : [ {
+          "systemField" : true,
+          "regex" : "regex",
+          "attrLevel" : "attrLevel",
+          "storerId" : 6,
+          "storerAttrMetaId" : 0,
+          "udfNo" : "udfNo",
+          "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+          "mandatory" : true,
+          "attrName" : "attrName",
+          "attrType" : "attrType",
+          "desc" : "desc"
+        }, {
+          "systemField" : true,
+          "regex" : "regex",
+          "attrLevel" : "attrLevel",
+          "storerId" : 6,
+          "storerAttrMetaId" : 0,
+          "udfNo" : "udfNo",
+          "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+          "mandatory" : true,
+          "attrName" : "attrName",
+          "attrType" : "attrType",
+          "desc" : "desc"
+        } ],
+        "pageInfo" : {
+          "pageNumber" : 0,
+          "pageSize" : 6
+        }
+      }
+    },
+    "GetPickRuleSetResponse" : {
+      "type" : "object",
+      "properties" : {
+        "pageInfo" : {
+          "$ref" : "#/definitions/ListStorerResponse_pageInfo"
+        },
+        "pickRuleSet_items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/GetPickRuleSetResponse_pickRuleSet_items"
+          }
+        }
+      },
+      "example" : {
+        "pickRuleSet_items" : [ {
+          "val" : "val",
+          "code" : "code",
+          "id" : 0
+        }, {
+          "val" : "val",
+          "code" : "code",
+          "id" : 0
+        } ],
+        "pageInfo" : {
+          "pageNumber" : 0,
+          "pageSize" : 6
+        }
+      }
+    },
+    "GetStorerByStorerIdPickRuleSetIdResponse" : {
+      "type" : "object",
+      "properties" : {
+        "pickRuleSetId" : {
+          "type" : "integer"
+        },
+        "pickRuleSet_list" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/GetStorerByStorerIdPickRuleSetIdResponse_pickRuleSet_list"
+          }
+        }
+      },
+      "example" : {
+        "pickRuleSetId" : 0,
+        "pickRuleSet_list" : [ {
+          "systemField" : "systemField",
+          "ruleValue" : "ruleValue",
+          "attrLevel" : "attrLevel",
+          "targetVal" : "targetVal",
+          "targetObj" : "targetObj",
+          "ruleType" : "ruleType",
+          "modifiedDate" : "2000-01-23T04:56:07.000+00:00",
+          "ruleId" : 6,
+          "seq" : 1,
+          "enabled" : "enabled",
+          "attrName" : "attrName",
+          "attrType" : "attrType"
+        }, {
+          "systemField" : "systemField",
+          "ruleValue" : "ruleValue",
+          "attrLevel" : "attrLevel",
+          "targetVal" : "targetVal",
+          "targetObj" : "targetObj",
+          "ruleType" : "ruleType",
+          "modifiedDate" : "2000-01-23T04:56:07.000+00:00",
+          "ruleId" : 6,
+          "seq" : 1,
+          "enabled" : "enabled",
+          "attrName" : "attrName",
+          "attrType" : "attrType"
+        } ]
+      }
+    },
+    "SearchPickRuleSetbyStorerIdResponse" : {
+      "type" : "object",
+      "properties" : {
+        "pageInfo" : {
+          "$ref" : "#/definitions/ListStorerResponse_pageInfo"
+        },
+        "pickRuleSet_items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SearchPickRuleSetbyStorerIdResponse_pickRuleSet_items"
+          }
+        }
+      },
+      "example" : {
+        "pickRuleSet_items" : [ {
+          "storerId" : 6,
+          "pickMatchId" : 1,
+          "pickRestrictId" : 5,
+          "name" : "name",
+          "id" : 0,
+          "pickSortId" : 5,
+          "isStorerDefault" : true,
+          "type" : "type",
+          "desc" : "desc"
+        }, {
+          "storerId" : 6,
+          "pickMatchId" : 1,
+          "pickRestrictId" : 5,
+          "name" : "name",
+          "id" : 0,
+          "pickSortId" : 5,
+          "isStorerDefault" : true,
+          "type" : "type",
+          "desc" : "desc"
+        } ],
+        "pageInfo" : {
+          "pageNumber" : 0,
+          "pageSize" : 6
+        }
+      }
+    },
+    "GetScanInConfigListResponse" : {
+      "type" : "object",
+      "properties" : {
+        "pageInfo" : {
+          "$ref" : "#/definitions/ListStorerResponse_pageInfo"
+        },
+        "scan_in_config_items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/GetScanInConfigListResponse_scan_in_config_items"
+          }
+        }
+      },
+      "example" : {
+        "scan_in_config_items" : [ {
+          "createdBy" : "createdBy",
+          "storerId" : 6,
+          "createdDateTime" : "2000-01-23T04:56:07.000+00:00",
+          "modifiedBy" : "modifiedBy",
+          "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+          "id" : 0,
+          "type" : "type",
+          "desc" : "desc"
+        }, {
+          "createdBy" : "createdBy",
+          "storerId" : 6,
+          "createdDateTime" : "2000-01-23T04:56:07.000+00:00",
+          "modifiedBy" : "modifiedBy",
+          "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+          "id" : 0,
+          "type" : "type",
+          "desc" : "desc"
+        } ],
+        "pageInfo" : {
+          "pageNumber" : 0,
+          "pageSize" : 6
+        }
+      }
+    },
+    "GetScanInConfigResponse" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "desc" : {
+          "type" : "string"
+        },
+        "storerId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "createdBy" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "createdDateTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "x-nullable" : true
+        },
+        "modifiedBy" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "modifiedDateTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "x-nullable" : true
+        },
+        "type" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "createdBy" : "createdBy",
+        "storerId" : 6,
+        "createdDateTime" : "2000-01-23T04:56:07.000+00:00",
+        "modifiedBy" : "modifiedBy",
+        "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+        "id" : 0,
+        "type" : "type",
+        "desc" : "desc"
+      }
+    },
+    "GetGroupingFieldResponse" : {
+      "type" : "object",
+      "properties" : {
+        "pageInfo" : {
+          "$ref" : "#/definitions/ListStorerResponse_pageInfo"
+        },
+        "groupingField_items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/GetStorerByFilteringResponse_storer_items"
+          }
+        }
+      },
+      "example" : {
+        "pageInfo" : {
+          "pageNumber" : 0,
+          "pageSize" : 6
+        },
+        "groupingField_items" : [ {
+          "val" : "val",
+          "code" : "code",
+          "id" : 0
+        }, {
+          "val" : "val",
+          "code" : "code",
+          "id" : 0
+        } ]
+      }
+    },
     "ApiResponse" : {
       "type" : "object",
       "properties" : {
@@ -469,11 +1358,15 @@
         "message" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "code" : 0,
+        "type" : "type",
+        "message" : "message"
       }
     },
-    "Error" : {
+    "ErrorResponse" : {
       "type" : "object",
-      "required" : [ "code", "message" ],
       "properties" : {
         "code" : {
           "type" : "integer",
@@ -481,8 +1374,560 @@
         },
         "message" : {
           "type" : "string"
+        },
+        "status" : {
+          "type" : "string"
+        },
+        "detail" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ErrorResponse_detail"
+          }
+        }
+      }
+    },
+    "storerstorerIdudfsearch_filters" : {
+      "properties" : {
+        "systemField" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "attrLevel" : {
+          "type" : "string",
+          "example" : "HEADER"
+        }
+      }
+    },
+    "searchStorerRequestBody" : {
+      "type" : "object",
+      "properties" : {
+        "filters" : {
+          "$ref" : "#/definitions/storerstorerIdudfsearch_filters"
+        },
+        "sort" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "example" : "storerAttrMetaId"
+          }
+        }
+      }
+    },
+    "searchPickRuleSetRequestBody" : {
+      "type" : "object",
+      "properties" : {
+        "filters" : {
+          "type" : "object",
+          "properties" : { }
+        },
+        "sort" : {
+          "example" : ""
+        }
+      }
+    },
+    "ListStorerResponse_pageInfo" : {
+      "properties" : {
+        "pageNumber" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pageSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      },
+      "example" : {
+        "pageNumber" : 0,
+        "pageSize" : 6
+      }
+    },
+    "ListStorerResponse_storer_items" : {
+      "properties" : {
+        "storerId" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "storageTypeId" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "companyName" : {
+          "type" : "string"
+        },
+        "storerCode" : {
+          "type" : "string"
+        },
+        "defaultPackCodeLength" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "defaultPackCodeWidth" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "defaultPackCodeHeight" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "defaultPackCodeGrossWeight" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "defaultPackCodeNettWeight" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "maxDimensionDisprecancy" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "maxWeightDisprecancy" : {
+          "type" : "integer",
+          "format" : "Int64",
+          "x-nullable" : true
+        },
+        "isRequireCheckDimension" : {
+          "type" : "boolean",
+          "x-nullable" : true
+        },
+        "isRequireCheckWeight" : {
+          "type" : "boolean",
+          "x-nullable" : true
+        },
+        "decimalPlacesVolume" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "decimalPlacesUomQty" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "decimalPlacesBaseQty" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "decimalPlacesGrossWeight" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "decimalPlacesNettWeight" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "decimalPlacesDimension" : {
+          "type" : "integer",
+          "x-nullable" : true
+        },
+        "asnLotNoConfig" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "barcodeType" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "modifiedDateTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "x-nullable" : true
+        },
+        "dateLastBilling" : {
+          "type" : "string",
+          "x-nullable" : true
+        }
+      },
+      "example" : {
+        "maxWeightDisprecancy" : 4,
+        "defaultPackCodeWidth" : 2,
+        "decimalPlacesUomQty" : 1,
+        "companyName" : "companyName",
+        "barcodeType" : "barcodeType",
+        "defaultPackCodeHeight" : 7,
+        "dateLastBilling" : "dateLastBilling",
+        "decimalPlacesNettWeight" : 6,
+        "defaultPackCodeGrossWeight" : 9,
+        "decimalPlacesVolume" : 7,
+        "defaultPackCodeLength" : 5,
+        "isRequireCheckWeight" : true,
+        "asnLotNoConfig" : "asnLotNoConfig",
+        "storerId" : 1,
+        "maxDimensionDisprecancy" : 2,
+        "storerCode" : "storerCode",
+        "storageTypeId" : 5,
+        "isRequireCheckDimension" : true,
+        "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+        "decimalPlacesDimension" : 7,
+        "decimalPlacesBaseQty" : 1,
+        "defaultPackCodeNettWeight" : 3,
+        "decimalPlacesGrossWeight" : 1
+      }
+    },
+    "GetStorerAttributesResponse_attributes_items" : {
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "modelAttributeKey" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "dataType" : {
+          "type" : "string"
+        },
+        "isSystemField" : {
+          "type" : "boolean"
+        },
+        "isMandatory" : {
+          "type" : "boolean"
+        },
+        "regexValidator" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "isForAllocation" : {
+          "type" : "boolean",
+          "x-nullable" : true
+        },
+        "isForSorting" : {
+          "type" : "boolean",
+          "x-nullable" : true
+        },
+        "udfNo" : {
+          "type" : "string",
+          "x-nullalbe" : true
+        }
+      },
+      "example" : {
+        "dataType" : "dataType",
+        "udfNo" : "udfNo",
+        "name" : "name",
+        "description" : "description",
+        "regexValidator" : "regexValidator",
+        "isForAllocation" : true,
+        "isForSorting" : true,
+        "id" : 0,
+        "modelAttributeKey" : "modelAttributeKey",
+        "isMandatory" : true,
+        "isSystemField" : true
+      }
+    },
+    "GetStorerByFilteringResponse_storer_items" : {
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "val" : {
+          "type" : "string",
+          "x-nullable" : true
+        }
+      },
+      "example" : {
+        "val" : "val",
+        "code" : "code",
+        "id" : 0
+      }
+    },
+    "GetStorerBySearchResponse_storer_items" : {
+      "properties" : {
+        "storerAttrMetaId" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "systemField" : {
+          "type" : "boolean"
+        },
+        "attrLevel" : {
+          "type" : "string"
+        },
+        "attrName" : {
+          "type" : "string"
+        },
+        "attrType" : {
+          "type" : "string"
+        },
+        "desc" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "storerId" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "mandatory" : {
+          "type" : "boolean"
+        },
+        "regex" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "modifiedDateTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "x-nullable" : true
+        },
+        "udfNo" : {
+          "type" : "string",
+          "x-nullable" : true
+        }
+      },
+      "example" : {
+        "systemField" : true,
+        "regex" : "regex",
+        "attrLevel" : "attrLevel",
+        "storerId" : 6,
+        "storerAttrMetaId" : 0,
+        "udfNo" : "udfNo",
+        "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+        "mandatory" : true,
+        "attrName" : "attrName",
+        "attrType" : "attrType",
+        "desc" : "desc"
+      }
+    },
+    "GetPickRuleSetResponse_pickRuleSet_items" : {
+      "properties" : {
+        "code" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "Int64"
+        },
+        "val" : {
+          "type" : "string",
+          "x-nullable" : true
+        }
+      },
+      "example" : {
+        "val" : "val",
+        "code" : "code",
+        "id" : 0
+      }
+    },
+    "GetStorerByStorerIdPickRuleSetIdResponse_pickRuleSet_list" : {
+      "properties" : {
+        "ruleId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "ruleType" : {
+          "type" : "string"
+        },
+        "ruleValue" : {
+          "type" : "string"
+        },
+        "seq" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "enabled" : {
+          "type" : "string"
+        },
+        "systemField" : {
+          "type" : "string"
+        },
+        "attrLevel" : {
+          "type" : "string"
+        },
+        "attrName" : {
+          "type" : "string"
+        },
+        "attrType" : {
+          "type" : "string"
+        },
+        "targetObj" : {
+          "type" : "string"
+        },
+        "targetVal" : {
+          "type" : "string"
+        },
+        "modifiedDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        }
+      },
+      "example" : {
+        "systemField" : "systemField",
+        "ruleValue" : "ruleValue",
+        "attrLevel" : "attrLevel",
+        "targetVal" : "targetVal",
+        "targetObj" : "targetObj",
+        "ruleType" : "ruleType",
+        "modifiedDate" : "2000-01-23T04:56:07.000+00:00",
+        "ruleId" : 6,
+        "seq" : 1,
+        "enabled" : "enabled",
+        "attrName" : "attrName",
+        "attrType" : "attrType"
+      }
+    },
+    "SearchPickRuleSetbyStorerIdResponse_pickRuleSet_items" : {
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "x-nullable" : true
+        },
+        "name" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "storerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "x-nullable" : true
+        },
+        "pickMatchId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "x-nullable" : true
+        },
+        "pickRestrictId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "x-nullable" : true
+        },
+        "pickSortId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "x-nullable" : true
+        },
+        "isStorerDefault" : {
+          "type" : "boolean",
+          "x-nullable" : true
+        },
+        "desc" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "type" : {
+          "type" : "string",
+          "x-nullable" : true
+        }
+      },
+      "example" : {
+        "storerId" : 6,
+        "pickMatchId" : 1,
+        "pickRestrictId" : 5,
+        "name" : "name",
+        "id" : 0,
+        "pickSortId" : 5,
+        "isStorerDefault" : true,
+        "type" : "type",
+        "desc" : "desc"
+      }
+    },
+    "GetScanInConfigListResponse_scan_in_config_items" : {
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "desc" : {
+          "type" : "string"
+        },
+        "storerId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "createdBy" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "createdDateTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "x-nullable" : true
+        },
+        "modifiedBy" : {
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "modifiedDateTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "x-nullable" : true
+        },
+        "type" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "createdBy" : "createdBy",
+        "storerId" : 6,
+        "createdDateTime" : "2000-01-23T04:56:07.000+00:00",
+        "modifiedBy" : "modifiedBy",
+        "modifiedDateTime" : "2000-01-23T04:56:07.000+00:00",
+        "id" : 0,
+        "type" : "type",
+        "desc" : "desc"
+      }
+    },
+    "ErrorResponse_detail" : {
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "string"
+        },
+        "code" : {
+          "type" : "integer"
+        },
+        "message" : {
+          "type" : "string"
         }
       }
     }
-  }
+  },
+  "responses" : {
+    "NotFound" : {
+      "description" : "The specified resource was not found",
+      "schema" : {
+        "$ref" : "#/definitions/ErrorResponse"
+      }
+    },
+    "Unauthorized" : {
+      "description" : "Unauthorized",
+      "schema" : {
+        "$ref" : "#/definitions/ErrorResponse"
+      }
+    }
+  },
+  "x-global-options" : {
+    "go_package" : "test"
+  },
+  "x-extensions" : [ {
+    "base" : "google.protobuf.MethodOptions",
+    "fields" : [ {
+      "name" : "role",
+      "type" : "string",
+      "number" : 50001
+    }, {
+      "name" : "visibility",
+      "type" : "string",
+      "number" : 50002
+    }, {
+      "name" : "timeout",
+      "type" : "int32",
+      "number" : 50003
+    } ]
+  } ]
 }
